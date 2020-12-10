@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+### 星座穿搭教學
 
 You can use the [editor on GitHub](https://github.com/PBC-the-best-project/resourse_garage/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
