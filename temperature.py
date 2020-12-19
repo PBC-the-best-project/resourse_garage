@@ -1,10 +1,15 @@
 import datetime
-
+a = int(input())
 import requests
 url1 = 'https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=6300400'
 r1 = requests.get(url1)
-url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX0021:1:TW?Goto=Redirected'
+if a <= 9:
+    url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX000'+ str(a) + ':1:TW?Goto=Redirected'
+else:
+    url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX00' + str(a) + ':1:TW?Goto=Redirected'
 # https://weather.com/zh-TW/weather/today/l/ab6a0d440cf29997c96b86e11b647c285d3a489a623ea04d29fdefe0ea3534b2
+# https://weather.com/zh-TW/weather/today/l/7ceb69e37a100e138b92e592f2bd6619cfa4626f7315d0877b5061494e83bb77
+# https://weather.com/zh-TW/weather/today/l/fe7393b7f2c8eed2cf692bd079361df362d9f0c1c0f896e6e46a649295e15c7d
 r2 = requests.get(url2)
 
 from bs4 import BeautifulSoup
@@ -31,4 +36,3 @@ for a in range(len(list1)):
 print(datetime.date.today())
 print(string1)
 print(string2)
-
