@@ -1,10 +1,11 @@
 import datetime
 a = int(input())
+
 import requests
 url1 = 'https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=6300400'
 r1 = requests.get(url1)
 if a <= 9:
-    url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX000'+ str(a) + ':1:TW?Goto=Redirected'
+    url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX000' + str(a) + ':1:TW?Goto=Redirected'
 else:
     url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX00' + str(a) + ':1:TW?Goto=Redirected'
 # https://weather.com/zh-TW/weather/today/l/ab6a0d440cf29997c96b86e11b647c285d3a489a623ea04d29fdefe0ea3534b2
