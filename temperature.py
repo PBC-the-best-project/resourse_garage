@@ -1,9 +1,12 @@
+import datetime
+
 import requests
 url1 = 'https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=6300400'
 r1 = requests.get(url1)
 url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX0021:1:TW?Goto=Redirected'
+# https://weather.com/zh-TW/weather/today/l/ab6a0d440cf29997c96b86e11b647c285d3a489a623ea04d29fdefe0ea3534b2
 r2 = requests.get(url2)
-# print(r.text)
+
 from bs4 import BeautifulSoup
 soup1 = BeautifulSoup(r1.text, 'html.parser')
 soup2 = BeautifulSoup(r2.text, 'html.parser')
@@ -25,6 +28,7 @@ string1 = str(num4[0].get_text()) + '：' + str(num3[0].get_text())
 string2 = str()
 for a in range(len(list1)):
     string2 += list1[a]
+print(datetime.date.today())
 print(string1)
 print(string2)
 
