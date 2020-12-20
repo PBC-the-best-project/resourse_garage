@@ -1,5 +1,5 @@
 import datetime
-a = int(input())
+a = int(input())  # 地點
 
 import requests
 url1 = 'https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=6300400'
