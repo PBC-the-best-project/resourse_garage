@@ -16,16 +16,6 @@ while True:
         print('請輸入數字')
 while True:
     try:
-        b = int(input('請輸入：1~2 (1今日運勢/2明日運勢) '))  # 1今日/2明日
-        if not 1 <= b <= 2:
-            print('超出範圍！')
-            continue
-        else:
-            break
-    except ValueError:
-        print('請輸入數字')
-while True:
-    try:
         c = int(input('請輸入：1~12 (1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚) '))
         # c星座：1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚
         if not 1 <= c <= 12:
@@ -48,7 +38,7 @@ else:
         str(a) + ':1:TW?Goto=Redirected'
 r2 = requests.get(url2)
 
-url3 = 'http://tw.xingbar.com/cgi-bin/v5starfate2?fate=' + str(b) + '&type=' + str(c)
+url3 = 'http://tw.xingbar.com/cgi-bin/v5starfate2?fate=1&type=' + str(c)
 r3 = requests.get(url3)
 
 soup1 = BeautifulSoup(r1.text, 'html.parser')
