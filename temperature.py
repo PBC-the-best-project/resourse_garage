@@ -14,6 +14,7 @@ while True:
             break
     except ValueError:
         print('請輸入數字')
+
 while True:
     try:
         c = int(input('請輸入：1~12 (1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚) '))
