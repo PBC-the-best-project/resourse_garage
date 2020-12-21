@@ -43,7 +43,7 @@ otherStyleTime = now.strftime("%Y-%m-%d %H:%M:%S")  # 2019-04-11 14:18:41
 print(otherStyleTime)
 
 print(string1)  # 地點 & 天氣
+print(string2)
 
-information = string2.split('：')
-temperature = int(information[1][:-1])
+temperature = int(list1[1][:-1])
 print(temperature)  # 當下溫度數值
