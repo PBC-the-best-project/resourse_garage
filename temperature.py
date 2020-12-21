@@ -1,10 +1,28 @@
 from bs4 import BeautifulSoup
 import requests
 import datetime
-a = int(input())  # 地點
-b = int(input('請輸入：1~4 (1今日運勢/2明日運勢/3本週運勢/4本月運勢) '))  # 1今日/2明日/3本週/4本月
-c = int(input('請輸入：1~12 (1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚) '))
-# c星座：1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚
+while True:
+    a = int(input('請按照對應表輸入地點: '))
+    if a > 99:
+        print('無對應地點')
+        continue
+    else:
+        break
+while True:
+    b = int(input('請輸入：1~2 (1今日運勢/2明日運勢) '))  # 1今日/2明日
+    if not 1 <= b <= 2:
+        print('超出範圍！')
+        continue
+    else:
+        break
+while True:
+    c = int(input('請輸入：1~12 (1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚) '))
+    # c星座：1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚
+    if not 1 <= c <= 12:
+        print('超出範圍！')
+        continue
+    else:
+        break
 
 url1 = 'https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=6300400'
 r1 = requests.get(url1)
@@ -34,7 +52,8 @@ num3 = soup2.find_all('div', attrs=attr2)  # 天氣
 attr3 = {'class': 'CurrentConditions--location--1Ayv3'}
 num4 = soup2.find_all('h1', attrs=attr3)  # 地點
 attr4 = {'class': 'dotRbox dottxt'}
-num5 = soup3.find_all('div', attrs=attr4)  # 愛情＋工作＋幸運色＋幸運物
+num5 = soup3.find_all('div', attrs=attr4)  # 愛情＋工作21＋幸運物
+num5.remove(num5[2])
 attr5 = {'class': 'dotLbox dottxt'}
 num6 = soup3.find_all('div', attrs=attr5)  # 心情＋財運＋健康＋開運方位
 
@@ -48,8 +67,9 @@ string3 = str()
 for a in range(len(list1)):
     string2 += list1[a]
 
-for a in range(len(num5)):
+for a in range(0, 3):
     string3 += num6[a].get_text() + '  ' + num5[a].get_text() + '\n'
+string3 += num6[3].get_text()
 # output
 now = datetime.datetime.now()  # 2019-04-11 14:18:41.629019
 otherStyleTime = now.strftime("%Y-%m-%d %H:%M:%S")  # 2019-04-11 14:18:41
