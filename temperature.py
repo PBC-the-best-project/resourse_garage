@@ -2,8 +2,8 @@ from bs4 import BeautifulSoup
 import requests
 import datetime
 a = int(input())  # 地點
-b = int(input())  # 1今日/2明日/3本週/4本月/5本年
-c = int(input())  # 星座：1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚
+b = int(input('1今日/2明日/3本週/4本月/5本年'))  # 1今日/2明日/3本週/4本月/5本年
+c = int(input('1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚'))  # 星座：1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚
 
 url1 = 'https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=6300400'
 r1 = requests.get(url1)
