@@ -44,6 +44,3 @@ print(otherStyleTime)
 
 print(string1)  # 地點 & 天氣
 print(string2)
-information = string2.split('：')
-temperature = int(information[1][:-1])
-print(temperature)  # 當下溫度數值
