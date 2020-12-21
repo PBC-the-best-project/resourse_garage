@@ -99,7 +99,7 @@ city_entry.pack(side = tk.LEFT)
 
 next_btn = tk.Button(window, text = '下一頁', command = nextpage, bd = 5)
 next_btn.pack(side = tk.TOP, padx=20, pady=10)
-
+'''
 photo1_frame = tk.Frame(window)
 photo1 = Image.open('C:/Daniel/報告/日系簡約風＿春秋＿白色.png')
 photo1 = photo1.resize((photo1.width // 2, photo1.height // 2))
@@ -120,5 +120,5 @@ photo4_frame = tk.Frame(window)
 photo4 = tk.PhotoImage('photo4', file='C:/Daniel/報告/韓系男友風＿冬＿白色.png')
 photo4_label = tk.Label(photo4_frame ,image=photo4)
 photo4_btn = tk.Button(photo4_frame, command = chose4, text = '選擇', bd = 5)
-
+'''
 window.mainloop()
