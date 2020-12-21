@@ -2,34 +2,44 @@ from bs4 import BeautifulSoup
 import requests
 import datetime
 while True:
-    a = int(input('請按照對應表輸入地點: '))
-    if a > 99:
-        print('無對應地點')
-        continue
-    else:
-        break
+    try:
+        a = int(input('請按照對應表輸入地點: '))
+        if a > 99:
+            print('無對應地點')
+            continue
+        else:
+            break
+    except ValueError:
+        print('請輸入數字')
 while True:
-    b = int(input('請輸入：1~2 (1今日運勢/2明日運勢) '))  # 1今日/2明日
-    if not 1 <= b <= 2:
-        print('超出範圍！')
-        continue
-    else:
-        break
+    try:
+        b = int(input('請輸入：1~2 (1今日運勢/2明日運勢) '))  # 1今日/2明日
+        if not 1 <= b <= 2:
+            print('超出範圍！')
+            continue
+        else:
+            break
+    except ValueError:
+        print('請輸入數字')
 while True:
-    c = int(input('請輸入：1~12 (1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚) '))
-    # c星座：1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚
-    if not 1 <= c <= 12:
-        print('超出範圍！')
-        continue
-    else:
-        break
-
+    try:
+        c = int(input('請輸入：1~12 (1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚) '))
+        # c星座：1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚
+        if not 1 <= c <= 12:
+            print('超出範圍！')
+            continue
+        else:
+            break
+    except ValueError:
+        print('請輸入數字')
 url1 = 'https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=6300400'
 r1 = requests.get(url1)
 
 if a <= 9:
     url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX000' + \
         str(a) + ':1:TW?Goto=Redirected'
+elif a == 75:
+    url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX0001:1:TW?Goto=Redirected'
 else:
     url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX00' + \
         str(a) + ':1:TW?Goto=Redirected'
@@ -60,7 +70,10 @@ num6 = soup3.find_all('div', attrs=attr5)  # 心情＋財運＋健康＋開運�
 for value in num2:
     list1.append(value.get_text())  # 溫度＋溫度值
 
-string1 = str(num4[0].get_text()) + '：' + str(num3[0].get_text())
+if a == 75:
+    string1 = str('雲林' + num4[0].get_text()[2:]) + '：' + str(num3[0].get_text())
+else:
+    string1 = str(num4[0].get_text()) + '：' + str(num3[0].get_text())
 string2 = str()
 string3 = str()
 
