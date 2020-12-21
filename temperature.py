@@ -54,8 +54,8 @@ otherStyleTime = now.strftime("%Y-%m-%d %H:%M:%S")  # 2019-04-11 14:18:41
 print(otherStyleTime)
 
 print(string1)  # 地點 & 天氣
-print(string2)
-print(string3)
+print(string2)  # 溫度
+print(string3)  # 星座運
 
 temperature = int(list1[1][:-1])  # 比較用
 print(temperature)  # 當下溫度數值
