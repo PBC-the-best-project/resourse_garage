@@ -1,7 +1,6 @@
 from PIL import Image
 
 import tkinter as tk
-import time
 
 
 def nextpage():
@@ -76,8 +75,6 @@ sex_variable = tk.StringVar(window)
 sex_variable.set('男')
 sex_menu = tk.OptionMenu(sex_frame, sex_variable, *['男', '女'])
 sex_menu.pack(side = tk.LEFT)
-
-date = time.strftime("%m/%d", time.localtime())
 
 star_variable = tk.StringVar(window)
 star_variable.set('水瓶')
