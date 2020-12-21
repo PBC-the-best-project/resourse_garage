@@ -7,14 +7,15 @@ c = int(input())  # 星座：1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7�
 
 url1 = 'https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=6300400'
 r1 = requests.get(url1)
+
 if a <= 9:
     url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX000' + \
         str(a) + ':1:TW?Goto=Redirected'
 else:
     url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX00' + \
         str(a) + ':1:TW?Goto=Redirected'
-
 r2 = requests.get(url2)
+
 url3 = 'http://tw.xingbar.com/cgi-bin/v5starfate2?fate=' + str(b) + '&type=' + str(c)
 r3 = requests.get(url3)
 
