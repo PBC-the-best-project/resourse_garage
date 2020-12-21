@@ -4,3 +4,6 @@ if leotutu == "胖子":
 else:
     print("Wrong Answer.")
 print('')
+a = {'w':1}
+b = a.get('w')
+print(b)
