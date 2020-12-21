@@ -44,3 +44,6 @@ print(otherStyleTime)
 
 print(string1)  # 地點 & 天氣
 print(string2)
+
+temperature = int(list1[1][:-1])
+print(temperature)  # 當下溫度數值
