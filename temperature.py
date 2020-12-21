@@ -1,8 +1,11 @@
 from bs4 import BeautifulSoup
 import requests
 import datetime
+from PIL import Image
 while True:
     try:
+        photo = Image.open('/Users/how/Desktop/PBC project/地點對應表.png')
+        photo.show()
         a = int(input('請按照對應表輸入地點: '))
         if a > 99:
             print('無對應地點')
