@@ -1,9 +1,6 @@
-leotutu = input()
-if leotutu == "胖子":
-    print("Bingo!!!!!")
-else:
-    print("Wrong Answer.")
-print('')
-a = {'w':1}
-b = a.get('w')
-print(b)
+from python_watch.functions import watch
+
+def print_text(text):
+    print(text)
+
+print_text('hello_world')
