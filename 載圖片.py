@@ -5,7 +5,7 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from PIL import Image
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 import requests
 import os
 
@@ -41,29 +41,31 @@ def main():
     # Call the Drive v3 API
     results = service.files().list(
         pageSize=288, fields="nextPageToken, files(id, name)").execute()
-    items = results.get('files', [])
-    new_items = []
+    items = results.get('files', [])  # 所有圖片
+    new_items = []  # 檔名＋ID
     if not items:
         print('No files found.')
     else:
         print('Files:')
         for item in range(0, len(items)):
             new_items.append(u'{0}({1})'.format(items[item]['name'][0:10], items[item]['id']))
-    photo = []
+    photo = []  # 要找的照片的檔名+ID
+    need_to_find = str()  # 要找的照片的搜索字:XX＿X，如：男秋＿白
     for a in new_items:
-        if a.find('秋＿白') != -1:
+        if a.find(need_to_find) != -1:
             photo.append(a)
         else:
             continue
-    print(photo)
-    path = os.getcwd()
-    for i in range(0, 4):
+    print(photo)  # 檢查是不是每個組合都是有照片的
+    path = os.getcwd()  # 這個py檔的路徑，因為載下來的照片會存在這個py檔旁邊
+    for i in range(0, 4):  # 4張圖片
         url = 'https://drive.google.com/u/0/uc?id=' + photo[i][11:-1] + '&export=download'
-        photo_sourse = requests.get(url)
+        photo_sourse = requests.get(url)  # 讀檔用
         with open('image.' + 'test' + str(i) + '.png', 'wb') as file:
             file.write(photo_sourse.content)
-            an = Image.open(path + '/image.test' + str(i) + '.png')
-        os.remove(path=path + '/image.test' + str(i) + '.png')
+            img_in_screen = Image.open(path + '/image.test' + str(i) + '.png')
+            # img_in_screen.show()
+        os.remove(path=path + '/image.test' + str(i) + '.png')  # 移出載下的圖片
 
 if __name__ == '__main__':
     main()
