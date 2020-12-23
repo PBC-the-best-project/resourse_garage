@@ -4,19 +4,6 @@ import datetime
 from PIL import Image
 while True:
     try:
-        photo = Image.open('/Users/how/Desktop/PBC project/地點對應表.png')
-        # photo.show()
-        a = int(input('請按照對應表輸入地點: '))
-        if a > 99:
-            print('無對應地點')
-            continue
-        else:
-            break
-    except ValueError:
-        print('請輸入數字')
-
-while True:
-    try:
         c = int(input('請輸入：1~12 (1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚) '))
         # c星座：1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚
         if not 1 <= c <= 12:
@@ -26,7 +13,7 @@ while True:
             break
     except ValueError:
         print('請輸入數字')
-
+a = int()
 if a <= 9:
     url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX000' + \
         str(a) + ':1:TW?Goto=Redirected'
@@ -56,7 +43,6 @@ attr5 = {'class': 'dotLbox dottxt'}
 num6 = soup3.find_all('div', attrs=attr5)  # 心情＋財運＋健康＋開運方位
 
 index = num4[0].get_text().find(' 天氣')
-print(index)
 '''
 1彰化/2嘉義/3基隆/9新竹/11花蓮/13高雄/14苗栗/15屏東/19台中/20台南/21台北/
 22新北/23台東/25桃園/42金門/72宜蘭/75雲林/89南投
