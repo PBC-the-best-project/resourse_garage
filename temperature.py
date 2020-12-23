@@ -5,7 +5,7 @@ from PIL import Image
 while True:
     try:
         photo = Image.open('/Users/how/Desktop/PBC project/地點對應表.png')
-        photo.show()
+        # photo.show()
         a = int(input('請按照對應表輸入地點: '))
         if a > 99:
             print('無對應地點')
@@ -26,8 +26,6 @@ while True:
             break
     except ValueError:
         print('請輸入數字')
-url1 = 'https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=6300400'
-r1 = requests.get(url1)
 
 if a <= 9:
     url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX000' + \
@@ -42,13 +40,9 @@ r2 = requests.get(url2)
 url3 = 'http://tw.xingbar.com/cgi-bin/v5starfate2?fate=1&type=' + str(c)
 r3 = requests.get(url3)
 
-soup1 = BeautifulSoup(r1.text, 'html.parser')
 soup2 = BeautifulSoup(r2.text, 'html.parser')
 soup3 = BeautifulSoup(r3.text, 'html.parser')
 
-list1 = []
-num1 = soup1.find_all('li', class_="ttem-C")  # 溫度
-list1.append(num1[0].get_text()+'：')
 attr1 = {'class': 'CurrentConditions--tempValue--3KcTQ'}
 num2 = soup2.find_all('span', attrs=attr1)  # 溫度值
 attr2 = {'class': 'CurrentConditions--phraseValue--2xXSr'}
@@ -61,18 +55,52 @@ num5.remove(num5[2])
 attr5 = {'class': 'dotLbox dottxt'}
 num6 = soup3.find_all('div', attrs=attr5)  # 心情＋財運＋健康＋開運方位
 
-for value in num2:
-    list1.append(value.get_text())  # 溫度＋溫度值
+index = num4[0].get_text().find(' 天氣')
+print(index)
+'''
+1彰化/2嘉義/3基隆/9新竹/11花蓮/13高雄/14苗栗/15屏東/19台中/20台南/21台北/
+22新北/23台東/25桃園/42金門/72宜蘭/75雲林/89南投
+'''
+if a == 1:
+    string1 = str('彰化' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 2:
+    string1 = str('嘉義' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 3:
+    string1 = str('基隆' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 9:
+    string1 = str('新竹' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 11:
+    string1 = str('花蓮' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 13:
+    string1 = str('高雄' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 14:
+    string1 = str('苗栗' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 15:
+    string1 = str('屏東' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 19:
+    string1 = str('台中' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 20:
+    string1 = str('台南' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 21:
+    string1 = str('台北' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 22:
+    string1 = str('新北' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 23:
+    string1 = str('台東' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 25:
+    string1 = str('桃園' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 42:
+    string1 = str('金門' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 72:
+    string1 = str('宜蘭' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 75:
+    string1 = str('雲林' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+elif a == 89:
+    string1 = str('南投' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
 
-if a == 75:
-    string1 = str('雲林' + num4[0].get_text()[2:]) + '：' + str(num3[0].get_text())
-else:
-    string1 = str(num4[0].get_text()) + '：' + str(num3[0].get_text())
-string2 = str()
+string2 = '溫度：'
 string3 = str()
-
-for a in range(len(list1)):
-    string2 += list1[a]
+string2 += str(num2[0].get_text())
 
 for a in range(0, 3):
     string3 += num6[a].get_text() + '  ' + num5[a].get_text() + '\n'
@@ -86,5 +114,10 @@ print(string1)  # 地點 & 天氣
 print(string2)  # 溫度
 print(string3)  # 星座運
 
-temperature = int(list1[1][:-1])  # 比較用
+temperature = int(num2[0].get_text()[0:-1])  # 比較用
 print(temperature)  # 當下溫度數值
+
+'''
+3Chi-Lung/11Hualian/19Taichung Tw-Afb/21Taipei Songshan Airport/
+22New Taipei City/23Taidong/42Chin-Men/72I-Lan/89Nan-Tou
+'''
