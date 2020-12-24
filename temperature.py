@@ -13,7 +13,7 @@ while True:
             break
     except ValueError:
         print('請輸入數字')
-a = int()
+a = int(21)
 if a <= 9:
     url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX000' + \
         str(a) + ':1:TW?Goto=Redirected'
@@ -47,42 +47,43 @@ index = num4[0].get_text().find(' 天氣')
 1彰化/2嘉義/3基隆/9新竹/11花蓮/13高雄/14苗栗/15屏東/19台中/20台南/21台北/
 22新北/23台東/25桃園/42金門/72宜蘭/75雲林/89南投
 '''
+common_use = str(num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
 if a == 1:
-    string1 = str('彰化' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('彰化' + common_use)
 elif a == 2:
-    string1 = str('嘉義' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('嘉義' + common_use)
 elif a == 3:
-    string1 = str('基隆' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('基隆' + common_use)
 elif a == 9:
-    string1 = str('新竹' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('新竹' + common_use)
 elif a == 11:
-    string1 = str('花蓮' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('花蓮' + common_use)
 elif a == 13:
-    string1 = str('高雄' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('高雄' + common_use)
 elif a == 14:
-    string1 = str('苗栗' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('苗栗' + common_use)
 elif a == 15:
-    string1 = str('屏東' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('屏東' + common_use)
 elif a == 19:
-    string1 = str('台中' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('台中' + common_use)
 elif a == 20:
-    string1 = str('台南' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('台南' + common_use)
 elif a == 21:
-    string1 = str('台北' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('台北' + common_use)
 elif a == 22:
-    string1 = str('新北' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('新北' + common_use)
 elif a == 23:
-    string1 = str('台東' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('台東' + common_use)
 elif a == 25:
-    string1 = str('桃園' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('桃園' + common_use)
 elif a == 42:
-    string1 = str('金門' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('金門' + common_use)
 elif a == 72:
-    string1 = str('宜蘭' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('宜蘭' + common_use)
 elif a == 75:
-    string1 = str('雲林' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('雲林' + common_use)
 elif a == 89:
-    string1 = str('南投' + num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    string1 = str('南投' + common_use)
 
 string2 = '溫度：'
 string3 = str()
@@ -99,11 +100,3 @@ print(otherStyleTime)
 print(string1)  # 地點 & 天氣
 print(string2)  # 溫度
 print(string3)  # 星座運
-
-temperature = int(num2[0].get_text()[0:-1])  # 比較用
-print(temperature)  # 當下溫度數值
-
-'''
-3Chi-Lung/11Hualian/19Taichung Tw-Afb/21Taipei Songshan Airport/
-22New Taipei City/23Taidong/42Chin-Men/72I-Lan/89Nan-Tou
-'''
