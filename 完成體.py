@@ -72,9 +72,6 @@ def google_photo(sex, season0, color0):
         photo_sourse = requests.get(url)  # 讀網址檔
         with open('image.' + 'test' + str(i) + '.png', 'wb') as file:
             file.write(photo_sourse.content)
-            img_in_screen = Image.open(photo_path + '/image.test' + str(i) + '.png')
-                # img_in_screen.show()
-            # os.remove(path=path + '/image.test' + str(i) + '.png')  # 移除載下的圖片
             pathlist.append(photo_path + '/image.test' + str(i) + '.png')
     global path
     path = pathlist
