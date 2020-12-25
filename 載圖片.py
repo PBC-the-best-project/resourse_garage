@@ -47,7 +47,7 @@ def main():
         for item in items:
             new_items.append(u'{0}({1})'.format(item['name'][0:10], item['id']))
     photo = []  # 要找的照片的檔名+ID
-    keyword_to_find = str('女秋＿紅')  # 要找的照片的關鍵字:XX＿X，如：男秋＿白
+    keyword_to_find = str('女秋＿白')  # 要找的照片的關鍵字:XX＿X，如：男秋＿白
     for a in new_items:
         if a.find(keyword_to_find) != -1:
             photo.append(a)
