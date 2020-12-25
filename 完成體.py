@@ -226,7 +226,7 @@ def photo():
     photo2_btn.grid()
     photo3_frame.grid(row=2, column=2)
     photo3 = Image.open(path[2])
-    photo3= photo3.resize(size)
+    photo3 = photo3.resize(size)
     photo3 = ImageTk.PhotoImage(photo3)
     photo3_label.configure(image = photo3)
     photo3_label.grid()
