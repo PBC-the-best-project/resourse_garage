@@ -1,16 +1,23 @@
 from __future__ import print_function
-from PIL import Image, ImageTk
+from PIL import Image,ImageTk
 import tkinter as tk
 from bs4 import BeautifulSoup
+import requests
 import datetime
 import pickle
 import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+# from bs4 import BeautifulSoup
 import requests
 import os
 
+def variable():
+    global sex_variable,star_variable, city_variable
+    sex_variable = sex_variable.get()
+    star_variable = star_variable.get()
+    city_variable = city_variable.get()
 
 def google_photo(sex):
     # If modifying these scopes, delete the file token.pickle.
@@ -47,26 +54,30 @@ def google_photo(sex):
         for item in items:
             new_items.append(u'{0}({1})'.format(item['name'][0:10], item['id']))
     photo = []  # 要找的照片的檔名+ID
-    keyword_to_find = str(sex + '秋＿' + color)  # 要找的照片的關鍵字:XX＿X，如：男秋＿白
+    keyword_to_find = str(sex + '秋＿白')  # 要找的照片的關鍵字:XX＿X，如：男秋＿白
     for a in new_items:
         if a.find(keyword_to_find) != -1:
             photo.append(a)
         else:
             continue
     # print(len(photo))  # 檢查是不是每個組合都是有照片的
-    path = os.getcwd()  # 這個py檔的路徑，因為載下來的照片會存在這個py檔旁邊
+    photo_path = os.getcwd()  # 這個py檔的路徑，因為載下來的照片會存在這個py檔旁邊
     pathlist = []
     for i in range(0, len(photo)):  # 4張圖片
         url = 'https://drive.google.com/u/0/uc?id=' + photo[i][11:-1] + '&export=download'
         photo_sourse = requests.get(url)  # 讀網址檔
         with open('image.' + 'test' + str(i) + '.png', 'wb') as file:
             file.write(photo_sourse.content)
-            img_in_screen = Image.open(path + '/image.test' + str(i) + '.png')
+            img_in_screen = Image.open(photo_path + '/image.test' + str(i) + '.png')
                 # img_in_screen.show()
             # os.remove(path=path + '/image.test' + str(i) + '.png')  # 移除載下的圖片
-            pathlist.append(path + '/image.test' + str(i) + '.png')
-    return pathlist
-
+            pathlist.append(photo_path + '/image.test' + str(i) + '.png')
+    global path, photo1, photo2, photo3, photo4
+    path = pathlist
+    photo1 = Image.open(pathlist[0])
+    photo2 = Image.open(pathlist[1])
+    photo3 = Image.open(pathlist[2])
+    photo4 = Image.open(pathlist[3])
 
 def nextpage():
     name_frame.pack_forget()
@@ -75,23 +86,16 @@ def nextpage():
     next_btn.pack_forget()
     city_frame.pack_forget()
 
-
 def luckystar():
-    while True:
-        try:
-            c = int(input('請輸入：1~12 (1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚) '))
-            # c星座：1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚
-            if not 1 <= c <= 12:
-                print('超出範圍！')
-                continue
-            else:
-                break
-        except ValueError:
-            print('請輸入數字')
+    url1 = 'https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=6300400'
+    r1 = requests.get(url1)
+
     city_dic = {'彰化': 1, '嘉義': 2, '基隆': 3, '新竹': 9, '花蓮': 11, '高雄': 13, '苗栗': 14, '屏東': 15, '台中': 19, '台南': 20,
                 '台北': 21, '新北': 22, '台東': 23, '桃園': 25, '金門': 42, '宜蘭': 72, '雲林': 75, '南投': 89}
 
-    a = city_dic.get(city_variable.get())
+    print(city_variable)
+    a = city_dic.get(city_variable)
+
     if a <= 9:
         url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX000' + \
                str(a) + ':1:TW?Goto=Redirected'
@@ -102,12 +106,17 @@ def luckystar():
                str(a) + ':1:TW?Goto=Redirected'
     r2 = requests.get(url2)
 
+    c = starsign.index(star_variable) + 1
     url3 = 'http://tw.xingbar.com/cgi-bin/v5starfate2?fate=1&type=' + str(c)
     r3 = requests.get(url3)
 
+    soup1 = BeautifulSoup(r1.text, 'html.parser')
     soup2 = BeautifulSoup(r2.text, 'html.parser')
     soup3 = BeautifulSoup(r3.text, 'html.parser')
 
+    list1 = []
+    num1 = soup1.find_all('li', class_="ttem-C")  # 溫度
+    list1.append(num1[0].get_text() + '：')
     attr1 = {'class': 'CurrentConditions--tempValue--3KcTQ'}
     num2 = soup2.find_all('span', attrs=attr1)  # 溫度值
     attr2 = {'class': 'CurrentConditions--phraseValue--2xXSr'}
@@ -120,94 +129,36 @@ def luckystar():
     attr5 = {'class': 'dotLbox dottxt'}
     num6 = soup3.find_all('div', attrs=attr5)  # 心情＋財運＋健康＋開運方位
 
-    index = num4[0].get_text().find(' 天氣')
+    for value in num2:
+        list1.append(value.get_text())  # 溫度＋溫度值
 
-    common_use = str(num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
-    if a == 1:
-        string1 = str('彰化' + common_use)
-    elif a == 2:
-        string1 = str('嘉義' + common_use)
-    elif a == 3:
-        string1 = str('基隆' + common_use)
-    elif a == 9:
-        string1 = str('新竹' + common_use)
-    elif a == 11:
-        string1 = str('花蓮' + common_use)
-    elif a == 13:
-        string1 = str('高雄' + common_use)
-    elif a == 14:
-        string1 = str('苗栗' + common_use)
-    elif a == 15:
-        string1 = str('屏東' + common_use)
-    elif a == 19:
-        string1 = str('台中' + common_use)
-    elif a == 20:
-        string1 = str('台南' + common_use)
-    elif a == 21:
-        string1 = str('台北' + common_use)
-    elif a == 22:
-        string1 = str('新北' + common_use)
-    elif a == 23:
-        string1 = str('台東' + common_use)
-    elif a == 25:
-        string1 = str('桃園' + common_use)
-    elif a == 42:
-        string1 = str('金門' + common_use)
-    elif a == 72:
-        string1 = str('宜蘭' + common_use)
-    elif a == 75:
-        string1 = str('雲林' + common_use)
-    elif a == 89:
-        string1 = str('南投' + common_use)
-
-    string2 = '溫度：'
+    if a == 75:
+        string1 = str('Yun-Lin' + num4[0].get_text()[2:]) + '：' + str(num3[0].get_text())
+    else:
+        string1 = str(num4[0].get_text()) + '：' + str(num3[0].get_text())
+    string2 = str()
     string3 = str()
-    string2 += str(num2[0].get_text())
+
+    for a in range(len(list1)):
+        string2 += list1[a]
 
     for a in range(0, 3):
         string3 += num6[a].get_text() + '  ' + num5[a].get_text() + '\n'
     string3 += num6[3].get_text()
     # output
     now = datetime.datetime.now()  # 2019-04-11 14:18:41.629019
-    otherStyleTime = now.strftime("%Y-%m-%d %H:%M:%S")  # 2019-04-11 14:18:41
-    print(otherStyleTime)
+    otherStyleTime = now.strftime("%Y/%m/%d %H:%M:%S")  # 2019-04-11 14:18:41
 
-    print(string1)  # 地點 & 天氣
-    print(string2)  # 溫度
-    print(string3)  # 星座運
-    temperature = int(string2[3:5])
-    if temperature < 15:
-        keyword_to_find = '冬'
-    elif 15 <= temperature < 25:
-        keyword_to_find = '秋'
-    elif 25 <= temperature:
-        keyword_to_find = '夏'
-    print(temperature)
-    starnumdic = {'牡羊': 1, '金牛': 2, '雙子': 3, '巨蟹': 4, '獅子': 5, '處女': 6, '天秤': 7,
-                  '天蠍': 8, '射手': 9, '摩羯': 10, '水瓶': 11, '雙魚': 0}
-    star_num = starnumdic.get(star_variable.get())
-    luckycolor = ((int(otherStyleTime[5]) + int(otherStyleTime[6])) * int(otherStyleTime[8])
-           + int(otherStyleTime[9]) + star_num) % 12
-    luckycolordic = {0: '藍', 1: '橘', 2: '綠', 3: '黑', 4: '黃', 5: '紅', 6: '紫', 7: '棕',
-                     8: '杏', 9: '粉', 10: '灰', 11: '白'}
-    color = luckycolordic.get(luckycolor)
     time_frame.grid(row=0, column=1, columnspan=2)
-    time_label.configure(text=otherStyleTime + '   ' + string1 + '   ' + string2)
+    time_label.configure(text = otherStyleTime + '   ' + string1 + '   ' + string2)
     time_label.grid()
     luck_frame.grid(row=1, column=1, columnspan=2)
-    luck_label.configure(text=string3)
+    luck_label.configure(text = string3)
     luck_label.grid()
-    return color
 
-
-def photo_setting(number):
-    photo = Image.open(google_photo(sex_variable.get())[number])
-    photo = photo.resize(size)
-    photo = ImageTk.PhotoImage(photo)
-    return photo
+    temperature = int(list1[1][:-1])  # 比較用
 
 def photo():
-    path = google_photo(sex_variable.get())
     photo1_frame.grid(row=2, column=0)
     photo1 = Image.open(path[0])
     photo1 = photo1.resize(size)
@@ -215,6 +166,7 @@ def photo():
     photo1_label.configure(image = photo1)
     photo1_label.grid()
     photo1_btn.grid()
+
     photo2_frame.grid(row=2, column=1)
     photo2 = Image.open(path[1])
     photo2 = photo2.resize(size)
@@ -222,6 +174,7 @@ def photo():
     photo2_label.configure(image = photo2)
     photo2_label.grid()
     photo2_btn.grid()
+
     photo3_frame.grid(row=2, column=2)
     photo3 = Image.open(path[2])
     photo3= photo3.resize(size)
@@ -229,6 +182,7 @@ def photo():
     photo3_label.configure(image = photo3)
     photo3_label.grid()
     photo3_btn.grid()
+
     photo4_frame.grid(row=2, column=3)
     photo4 = Image.open(path[3])
     photo4 = photo4.resize(size)
@@ -237,65 +191,65 @@ def photo():
     photo4_label.grid()
     photo4_btn.grid()
 
-def nextpage_luckystar_photo():
+def variable_nextpage_luckystar_photo():
+    variable()
+    google_photo(sex_variable)
     nextpage()
     luckystar()
     photo()
-    window.destroy()
-    window1 = tk.Tk()
-    window1.title('星座穿搭')
-    window1.geometry('1425x755')
-    window1.configure(background='white')
-    window1.mainloop()
 
 def chose1():
-    path = google_photo(sex_variable.get())
     photo1_frame.grid_forget()
     photo2_frame.grid_forget()
     photo3_frame.grid_forget()
     photo4_frame.grid_forget()
     time_frame.grid_forget()
     luck_frame.grid_forget()
-    final = tk.Label(window, image=photo_setting(0))
+    photo1 = photo1.resize(size)
+    photo1 = ImageTk.PhotoImage(photo1)
+    final = tk.Label(window, image=photo1)
     final.pack(side=tk.TOP)
     for i in range(0,4):
         os.remove(path=path[i])
 
 def chose2():
-    path = google_photo(sex_variable.get())
     photo1_frame.grid_forget()
     photo2_frame.grid_forget()
     photo3_frame.grid_forget()
     photo4_frame.grid_forget()
     time_frame.grid_forget()
     luck_frame.grid_forget()
-    final = tk.Label(window, image=photo_setting(1))
+    photo2= photo2.resize(size)
+    photo2 = ImageTk.PhotoImage(photo2)
+    final = tk.Label(window, image=photo2)
     final.pack(side=tk.TOP)
     for i in range(0,4):
         os.remove(path=path[i])
 
 def chose3():
-    path = google_photo(sex_variable.get())
     photo1_frame.grid_forget()
     photo2_frame.grid_forget()
     photo3_frame.grid_forget()
     photo4_frame.grid_forget()
     time_frame.grid_forget()
     luck_frame.grid_forget()
-    final = tk.Label(window, image=photo_setting(2))
+    photo3= photo3.resize(size)
+    photo3 = ImageTk.PhotoImage(photo3)
+    final = tk.Label(window, image=photo3)
     final.pack(side=tk.TOP)
     for i in range(0,4):
         os.remove(path=path[i])
 
 def chose4():
-    path = google_photo(sex_variable.get())
     photo1_frame.grid_forget()
     photo2_frame.grid_forget()
     photo3_frame.grid_forget()
     photo4_frame.grid_forget()
     time_frame.grid_forget()
     luck_frame.grid_forget()
-    final = tk.Label(window, image=photo_setting(3))
+    photo4= photo4.resize(size)
+    photo4 = ImageTk.PhotoImage(photo4)
+    final = tk.Label(window, image=photo4)
     final.pack(side=tk.TOP)
     for i in range(0,4):
         os.remove(path=path[i])
@@ -305,6 +259,8 @@ window = tk.Tk()
 window.title('星座穿搭')
 window.geometry('1425x755')
 window.configure(background='white')
+
+path = []
 
 name = tk.StringVar()
 name_frame = tk.Frame(window, bd=5)
@@ -343,13 +299,18 @@ city_label.pack(side=tk.LEFT)
 city_menu = tk.OptionMenu(city_frame, city_variable, *city)
 city_menu.pack(side=tk.LEFT)
 
-next_btn = tk.Button(window, text='下一頁', command=nextpage_luckystar_photo, bd=5)
+next_btn = tk.Button(window, text='下一頁', command=variable_nextpage_luckystar_photo, bd=5)
 next_btn.pack(side=tk.TOP, padx=20, pady=10)
 
 time_frame = tk.Frame(window)
 time_label = tk.Label(time_frame, text='')
 luck_frame = tk.Frame(window)
 luck_label = tk.Label(time_frame, text='')
+
+photo1 = ImageTk
+photo2 = ImageTk
+photo3 = ImageTk
+photo4 = ImageTk
 
 size = (352,632)
 photo1_frame = tk.Frame(window)
