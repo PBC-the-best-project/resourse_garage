@@ -101,6 +101,12 @@ print(string1)  # 地點 & 天氣
 print(string2)  # 溫度
 print(string3)  # 星座運
 temperature = int(string2[3:5])
+if temperature < 15:
+    keyword_to_find = '冬'
+elif 15 <= temperature < 25:
+    keyword_to_find = '秋'
+elif 25 <= temperature:
+    keyword_to_find = '夏'
 print(temperature)
 starnum = int()
 print(((int(otherStyleTime[5]) + int(otherStyleTime[6]))*int(otherStyleTime[8])
