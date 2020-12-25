@@ -45,7 +45,6 @@ def google_photo(sex):
     if not items:
         print('No files found.')
     else:
-        print('Files:')
         for item in items:
             new_items.append(u'{0}({1})'.format(item['name'][0:10], item['id']))
     photo = []  # 要找的照片的檔名+ID
@@ -147,69 +146,105 @@ def luckystar():
 
     temperature = int(list1[1][:-1])  # 比較用
 
+def photo_setting(number):
+    photo = Image.open(google_photo(sex_variable.get())[number])
+    photo = photo.resize(size)
+    photo = ImageTk.PhotoImage(photo)
+    return photo
+
 def photo():
+    path = google_photo(sex_variable.get())
     photo1_frame.grid(row=2, column=0)
-    photo1 = Image.open(google_photo(sex_variable.get())[0])
+    photo1 = Image.open(path[0])
     photo1 = photo1.resize(size)
     photo1 = ImageTk.PhotoImage(photo1)
     photo1_label.configure(image = photo1)
     photo1_label.grid()
     photo1_btn.grid()
-    '''
     photo2_frame.grid(row=2, column=1)
+    photo2 = Image.open(path[1])
+    photo2 = photo2.resize(size)
+    photo2 = ImageTk.PhotoImage(photo2)
+    photo2_label.configure(image = photo2)
     photo2_label.grid()
     photo2_btn.grid()
     photo3_frame.grid(row=2, column=2)
+    photo3 = Image.open(path[2])
+    photo3= photo3.resize(size)
+    photo3 = ImageTk.PhotoImage(photo3)
+    photo3_label.configure(image = photo3)
     photo3_label.grid()
     photo3_btn.grid()
     photo4_frame.grid(row=2, column=3)
+    photo4 = Image.open(path[3])
+    photo4 = photo4.resize(size)
+    photo4 = ImageTk.PhotoImage(photo4)
+    photo4_label.configure(image = photo4)
     photo4_label.grid()
     photo4_btn.grid()
-'''
+
 def nextpage_luckystar_photo():
     nextpage()
     luckystar()
     photo()
+    window.destroy()
+    window1 = tk.Tk()
+    window1.title('星座穿搭')
+    window1.geometry('1425x755')
+    window1.configure(background='white')
+    window1.mainloop()
 
 def chose1():
+    path = google_photo(sex_variable.get())
     photo1_frame.grid_forget()
-    #photo2_frame.grid_forget()
-    #photo3_frame.grid_forget()
-    #photo4_frame.grid_forget()
+    photo2_frame.grid_forget()
+    photo3_frame.grid_forget()
+    photo4_frame.grid_forget()
     time_frame.grid_forget()
     luck_frame.grid_forget()
-    final = tk.Label(window, image=photo1)
+    final = tk.Label(window, image=photo_setting(0))
     final.pack(side=tk.TOP)
+    for i in range(0,4):
+        os.remove(path=path[i])
 
 def chose2():
+    path = google_photo(sex_variable.get())
     photo1_frame.grid_forget()
     photo2_frame.grid_forget()
     photo3_frame.grid_forget()
     photo4_frame.grid_forget()
     time_frame.grid_forget()
     luck_frame.grid_forget()
-    final = tk.Label(window, image=photo2)
+    final = tk.Label(window, image=photo_setting(1))
     final.pack(side=tk.TOP)
+    for i in range(0,4):
+        os.remove(path=path[i])
 
 def chose3():
+    path = google_photo(sex_variable.get())
     photo1_frame.grid_forget()
     photo2_frame.grid_forget()
     photo3_frame.grid_forget()
     photo4_frame.grid_forget()
     time_frame.grid_forget()
     luck_frame.grid_forget()
-    final = tk.Label(window, image=photo3)
+    final = tk.Label(window, image=photo_setting(2))
     final.pack(side=tk.TOP)
+    for i in range(0,4):
+        os.remove(path=path[i])
 
 def chose4():
+    path = google_photo(sex_variable.get())
     photo1_frame.grid_forget()
     photo2_frame.grid_forget()
     photo3_frame.grid_forget()
     photo4_frame.grid_forget()
     time_frame.grid_forget()
     luck_frame.grid_forget()
-    final = tk.Label(window, image=photo4)
+    final = tk.Label(window, image=photo_setting(3))
     final.pack(side=tk.TOP)
+    for i in range(0,4):
+        os.remove(path=path[i])
 
 window = tk.Tk()
 
@@ -266,26 +301,17 @@ size = (352,632)
 photo1_frame = tk.Frame(window)
 photo1_label = tk.Label(photo1_frame)
 photo1_btn = tk.Button(photo1_frame, command=chose1, text='選擇', bd=5)
-'''
+
 photo2_frame = tk.Frame(window)
-photo2 = Image.open('C:/Daniel/報告/日系簡約風＿夏＿綠色.png')
-photo2 = photo2.resize(size)
-photo2 = ImageTk.PhotoImage(photo2)
-photo2_label = tk.Label(photo2_frame, image=photo2)
+photo2_label = tk.Label(photo2_frame)
 photo2_btn = tk.Button(photo2_frame, command=chose2, text='選擇', bd=5)
 
 photo3_frame = tk.Frame(window)
-photo3 = Image.open('C:/Daniel/報告/型男工裝風＿夏＿灰色.png')
-photo3 = photo3.resize(size)
-photo3 = ImageTk.PhotoImage(photo3)
-photo3_label = tk.Label(photo3_frame, image=photo3)
+photo3_label = tk.Label(photo3_frame)
 photo3_btn = tk.Button(photo3_frame, command=chose3, text='選擇', bd=5)
 
 photo4_frame = tk.Frame(window)
-photo4 = Image.open('C:/Daniel/報告/韓系男友風＿冬＿白色.png')
-photo4 = photo4.resize(size)
-photo4 = ImageTk.PhotoImage(photo4)
-photo4_label = tk.Label(photo4_frame, image=photo4)
+photo4_label = tk.Label(photo4_frame)
 photo4_btn = tk.Button(photo4_frame, command=chose4, text='選擇', bd=5)
-'''
+
 window.mainloop()
