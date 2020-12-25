@@ -1,5 +1,5 @@
 from __future__ import print_function
-from PIL import Image,ImageTk
+from PIL import Image, ImageTk
 import tkinter as tk
 from bs4 import BeautifulSoup
 import requests
@@ -13,6 +13,7 @@ from google.auth.transport.requests import Request
 import requests
 import os
 
+
 def variable():
     global name_variable,sex_variable, star_variable, city_variable, starnum
     name_variable = str(name_variable.get())
@@ -20,6 +21,7 @@ def variable():
     star_variable = str(star_variable.get())
     city_variable = str(city_variable.get())
     starnum = star_dic.get(star_variable)
+
 
 def google_photo(sex, season0, color0):
     # If modifying these scopes, delete the file token.pickle.
@@ -77,6 +79,7 @@ def google_photo(sex, season0, color0):
     global path
     path = pathlist
     return path
+
 
 def nextpage():
     name_frame.pack_forget()
@@ -192,6 +195,7 @@ def luckystar():
     global color
     color = lucky_color_dic.get(((int(otherStyleTime[5]) + int(otherStyleTime[6])) * int(otherStyleTime[8]) + int(otherStyleTime[9]) + starnum) % 12)
 
+
 def photo():
     photo1_frame.grid(row=2, column=0)
     global photo1_label,photo1
@@ -229,12 +233,14 @@ def photo():
     photo4_label.grid()
     photo4_btn.grid()
 
+
 def variable_nextpage_luckystar_photo():
     variable()
     nextpage()
     luckystar()
     google_photo(sex_variable, season, color)
     photo()
+
 
 def chose1():
     photo1_frame.grid_forget()
@@ -247,8 +253,9 @@ def chose1():
     final_label.pack(side = tk.TOP, padx=20, pady=10)
     final = tk.Label(window, image=photo1)
     final.pack(side=tk.TOP)
-    for i in range(0,4):
+    for i in range(0, 4):
         os.remove(path=path[i])
+
 
 def chose2():
     photo1_frame.grid_forget()
@@ -261,8 +268,9 @@ def chose2():
     final_label.pack(side = tk.TOP, padx=20, pady=10)
     final = tk.Label(window, image=photo2)
     final.pack(side=tk.TOP)
-    for i in range(0,4):
+    for i in range(0, 4):
         os.remove(path=path[i])
+
 
 def chose3():
     photo1_frame.grid_forget()
@@ -275,8 +283,9 @@ def chose3():
     final_label.pack(side = tk.TOP, padx=20, pady=10)
     final = tk.Label(window, image=photo3)
     final.pack(side=tk.TOP)
-    for i in range(0,4):
+    for i in range(0, 4):
         os.remove(path=path[i])
+
 
 def chose4():
     photo1_frame.grid_forget()
@@ -289,8 +298,9 @@ def chose4():
     final_label.pack(side = tk.TOP, padx=20, pady=10)
     final = tk.Label(window, image=photo4)
     final.pack(side=tk.TOP)
-    for i in range(0,4):
+    for i in range(0, 4):
         os.remove(path=path[i])
+
 
 window = tk.Tk()
 
@@ -339,7 +349,8 @@ starsign_menu.pack(side=tk.LEFT)
 
 city_variable = tk.StringVar(window)
 city_variable.set('基隆')
-city = ['基隆','新北','台北','桃園','新竹','苗栗','台中','彰化','南投','雲林','嘉義','台南','高雄','屏東','宜蘭','花蓮','台東','金門']
+city = ['基隆', '新北', '台北', '桃園', '新竹', '苗栗', '台中', '彰化', '南投', '雲林', '嘉義', '台南',
+        '高雄', '屏東', '宜蘭', '花蓮', '台東', '金門']
 city_frame = tk.Frame(window, bd=5)
 city_frame.pack(side=tk.TOP, padx=20, pady=10)
 city_label = tk.Label(city_frame, text='地點：')
