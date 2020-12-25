@@ -48,7 +48,7 @@ def google_photo(sex):
         for item in items:
             new_items.append(u'{0}({1})'.format(item['name'][0:10], item['id']))
     photo = []  # 要找的照片的檔名+ID
-    keyword_to_find = str(sex + '秋＿' + color)  # 要找的照片的關鍵字:XX＿X，如：男秋＿白
+    keyword_to_find = str(sex + '冬＿白')  # 要找的照片的關鍵字:XX＿X，如：男秋＿白
     for a in new_items:
         if a.find(keyword_to_find) != -1:
             photo.append(a)
@@ -184,8 +184,10 @@ def luckystar():
     elif 25 <= temperature:
         keyword_to_find = '夏'
     print(temperature)
-    starnumdic = {'牡羊': 1, '金牛': 2, '雙子': 3, '巨蟹': 4, '獅子': 5, '處女': 6, '天秤': 7,
+starnumdic = {'牡羊': 1, '金牛': 2, '雙子': 3, '巨蟹': 4, '獅子': 5, '處女': 6, '天秤': 7,
                   '天蠍': 8, '射手': 9, '摩羯': 10, '水瓶': 11, '雙魚': 0}
+
+def luckycolor(otherStyleTime):
     star_num = starnumdic.get(star_variable.get())
     luckycolor = ((int(otherStyleTime[5]) + int(otherStyleTime[6])) * int(otherStyleTime[8])
            + int(otherStyleTime[9]) + star_num) % 12
