@@ -100,6 +100,8 @@ print(otherStyleTime)
 print(string1)  # 地點 & 天氣
 print(string2)  # 溫度
 print(string3)  # 星座運
+temperature = int(string2[3:5])
+print(temperature)
 starnum = int()
 print(((int(otherStyleTime[5]) + int(otherStyleTime[6]))*int(otherStyleTime[8])
        + int(otherStyleTime[9]) + starnum) % 12)
