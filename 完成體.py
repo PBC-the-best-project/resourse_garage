@@ -77,14 +77,18 @@ def nextpage():
     city_frame.pack_forget()
 
 def luckystar():
-    url1 = 'https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=6300400'
-    r1 = requests.get(url1)
-
-    city_dic = {'彰化': 1, '嘉義': 2, '基隆': 3, '新竹': 9, '花蓮': 11, '高雄': 13, '苗栗': 14, '屏東': 15, '台中': 19, '台南': 20,
-                '台北': 21, '新北': 22, '台東': 23, '桃園': 25, '金門': 42, '宜蘭': 72, '雲林': 75, '南投': 89}
-
-    a = city_dic.get(city_variable.get())
-
+    while True:
+        try:
+            c = int(input('請輸入：1~12 (1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚) '))
+            # c星座：1牡羊/2金牛/3雙子/4巨蟹/5獅子/6處女/7天秤/8天蠍/9射手/10摩羯/11水瓶/12雙魚
+            if not 1 <= c <= 12:
+                print('超出範圍！')
+                continue
+            else:
+                break
+        except ValueError:
+            print('請輸入數字')
+    a = int(21)
     if a <= 9:
         url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX000' + \
                str(a) + ':1:TW?Goto=Redirected'
@@ -95,17 +99,12 @@ def luckystar():
                str(a) + ':1:TW?Goto=Redirected'
     r2 = requests.get(url2)
 
-    c = starsign.index(star_variable.get()) + 1
     url3 = 'http://tw.xingbar.com/cgi-bin/v5starfate2?fate=1&type=' + str(c)
     r3 = requests.get(url3)
 
-    soup1 = BeautifulSoup(r1.text, 'html.parser')
     soup2 = BeautifulSoup(r2.text, 'html.parser')
     soup3 = BeautifulSoup(r3.text, 'html.parser')
 
-    list1 = []
-    num1 = soup1.find_all('li', class_="ttem-C")  # 溫度
-    list1.append(num1[0].get_text() + '：')
     attr1 = {'class': 'CurrentConditions--tempValue--3KcTQ'}
     num2 = soup2.find_all('span', attrs=attr1)  # 溫度值
     attr2 = {'class': 'CurrentConditions--phraseValue--2xXSr'}
@@ -118,25 +117,75 @@ def luckystar():
     attr5 = {'class': 'dotLbox dottxt'}
     num6 = soup3.find_all('div', attrs=attr5)  # 心情＋財運＋健康＋開運方位
 
-    for value in num2:
-        list1.append(value.get_text())  # 溫度＋溫度值
+    index = num4[0].get_text().find(' 天氣')
+    '''
+    1彰化/2嘉義/3基隆/9新竹/11花蓮/13高雄/14苗栗/15屏東/19台中/20台南/21台北/
+    22新北/23台東/25桃園/42金門/72宜蘭/75雲林/89南投
+    '''
+    common_use = str(num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
+    if a == 1:
+        string1 = str('彰化' + common_use)
+    elif a == 2:
+        string1 = str('嘉義' + common_use)
+    elif a == 3:
+        string1 = str('基隆' + common_use)
+    elif a == 9:
+        string1 = str('新竹' + common_use)
+    elif a == 11:
+        string1 = str('花蓮' + common_use)
+    elif a == 13:
+        string1 = str('高雄' + common_use)
+    elif a == 14:
+        string1 = str('苗栗' + common_use)
+    elif a == 15:
+        string1 = str('屏東' + common_use)
+    elif a == 19:
+        string1 = str('台中' + common_use)
+    elif a == 20:
+        string1 = str('台南' + common_use)
+    elif a == 21:
+        string1 = str('台北' + common_use)
+    elif a == 22:
+        string1 = str('新北' + common_use)
+    elif a == 23:
+        string1 = str('台東' + common_use)
+    elif a == 25:
+        string1 = str('桃園' + common_use)
+    elif a == 42:
+        string1 = str('金門' + common_use)
+    elif a == 72:
+        string1 = str('宜蘭' + common_use)
+    elif a == 75:
+        string1 = str('雲林' + common_use)
+    elif a == 89:
+        string1 = str('南投' + common_use)
 
-    if a == 75:
-        string1 = str('Yun-Lin' + num4[0].get_text()[2:]) + '：' + str(num3[0].get_text())
-    else:
-        string1 = str(num4[0].get_text()) + '：' + str(num3[0].get_text())
-    string2 = str()
+    string2 = '溫度：'
     string3 = str()
-
-    for a in range(len(list1)):
-        string2 += list1[a]
+    string2 += str(num2[0].get_text())
 
     for a in range(0, 3):
         string3 += num6[a].get_text() + '  ' + num5[a].get_text() + '\n'
     string3 += num6[3].get_text()
     # output
     now = datetime.datetime.now()  # 2019-04-11 14:18:41.629019
-    otherStyleTime = now.strftime("%Y/%m/%d %H:%M:%S")  # 2019-04-11 14:18:41
+    otherStyleTime = now.strftime("%Y-%m-%d %H:%M:%S")  # 2019-04-11 14:18:41
+    print(otherStyleTime)
+
+    print(string1)  # 地點 & 天氣
+    print(string2)  # 溫度
+    print(string3)  # 星座運
+    temperature = int(string2[3:5])
+    if temperature < 15:
+        keyword_to_find = '冬'
+    elif 15 <= temperature < 25:
+        keyword_to_find = '秋'
+    elif 25 <= temperature:
+        keyword_to_find = '夏'
+    print(temperature)
+    starnum = int()
+    print(((int(otherStyleTime[5]) + int(otherStyleTime[6])) * int(otherStyleTime[8])
+           + int(otherStyleTime[9]) + starnum) % 12)
 
     time_frame.grid(row=0, column=1, columnspan=2)
     time_label.configure(text = otherStyleTime + '   ' + string1 + '   ' + string2)
@@ -144,8 +193,6 @@ def luckystar():
     luck_frame.grid(row=1, column=1, columnspan=2)
     luck_label.configure(text = string3)
     luck_label.grid()
-
-    temperature = int(list1[1][:-1])  # 比較用
 
 def photo():
     photo1_frame.grid(row=2, column=0)
