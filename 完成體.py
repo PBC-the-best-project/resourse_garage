@@ -93,7 +93,6 @@ def luckystar():
     city_dic = {'彰化': 1, '嘉義': 2, '基隆': 3, '新竹': 9, '花蓮': 11, '高雄': 13, '苗栗': 14, '屏東': 15, '台中': 19, '台南': 20,
                 '台北': 21, '新北': 22, '台東': 23, '桃園': 25, '金門': 42, '宜蘭': 72, '雲林': 75, '南投': 89}
 
-    print(city_variable)
     a = city_dic.get(city_variable)
 
     if a <= 9:
@@ -160,7 +159,7 @@ def luckystar():
 
 def photo():
     photo1_frame.grid(row=2, column=0)
-    photo1 = Image.open(path[0])
+    global photo1_label,photo1
     photo1 = photo1.resize(size)
     photo1 = ImageTk.PhotoImage(photo1)
     photo1_label.configure(image = photo1)
@@ -168,7 +167,7 @@ def photo():
     photo1_btn.grid()
 
     photo2_frame.grid(row=2, column=1)
-    photo2 = Image.open(path[1])
+    global photo2_label,photo2
     photo2 = photo2.resize(size)
     photo2 = ImageTk.PhotoImage(photo2)
     photo2_label.configure(image = photo2)
@@ -176,15 +175,15 @@ def photo():
     photo2_btn.grid()
 
     photo3_frame.grid(row=2, column=2)
-    photo3 = Image.open(path[2])
-    photo3 = photo3.resize(size)
+    global photo3_label,photo3
+    photo3= photo3.resize(size)
     photo3 = ImageTk.PhotoImage(photo3)
     photo3_label.configure(image = photo3)
     photo3_label.grid()
     photo3_btn.grid()
 
     photo4_frame.grid(row=2, column=3)
-    photo4 = Image.open(path[3])
+    global photo4_label,photo4
     photo4 = photo4.resize(size)
     photo4 = ImageTk.PhotoImage(photo4)
     photo4_label.configure(image = photo4)
@@ -205,8 +204,7 @@ def chose1():
     photo4_frame.grid_forget()
     time_frame.grid_forget()
     luck_frame.grid_forget()
-    photo1 = photo1.resize(size)
-    photo1 = ImageTk.PhotoImage(photo1)
+    global photo1
     final = tk.Label(window, image=photo1)
     final.pack(side=tk.TOP)
     for i in range(0,4):
@@ -219,8 +217,7 @@ def chose2():
     photo4_frame.grid_forget()
     time_frame.grid_forget()
     luck_frame.grid_forget()
-    photo2= photo2.resize(size)
-    photo2 = ImageTk.PhotoImage(photo2)
+    global photo2
     final = tk.Label(window, image=photo2)
     final.pack(side=tk.TOP)
     for i in range(0,4):
@@ -233,8 +230,7 @@ def chose3():
     photo4_frame.grid_forget()
     time_frame.grid_forget()
     luck_frame.grid_forget()
-    photo3= photo3.resize(size)
-    photo3 = ImageTk.PhotoImage(photo3)
+    global photo3
     final = tk.Label(window, image=photo3)
     final.pack(side=tk.TOP)
     for i in range(0,4):
@@ -247,8 +243,7 @@ def chose4():
     photo4_frame.grid_forget()
     time_frame.grid_forget()
     luck_frame.grid_forget()
-    photo4= photo4.resize(size)
-    photo4 = ImageTk.PhotoImage(photo4)
+    global photo4
     final = tk.Label(window, image=photo4)
     final.pack(side=tk.TOP)
     for i in range(0,4):
