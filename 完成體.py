@@ -371,7 +371,7 @@ photo2 = ImageTk
 photo3 = ImageTk
 photo4 = ImageTk
 
-size = (352,632)
+size = (300, 550)
 photo1_frame = tk.Frame(window)
 photo1_label = tk.Label(photo1_frame)
 photo1_btn = tk.Button(photo1_frame, command=chose1, text='選擇', bd=5)
