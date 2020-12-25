@@ -89,7 +89,7 @@ def nextpage():
     city_frame.pack_forget()
     global final_label, name_variable
     if sex_variable == '男':
-        final_label.configure(text = name_variable[0] + "先生，這是您今天的最適穿著")
+        final_label.configure(text=name_variable[0] + "先生，這是您今天的最適穿著")
     else:
         final_label.configure(text=name_variable[0] + "小姐，這是您今天的最適穿著")
 
@@ -197,8 +197,9 @@ def luckystar():
 
 
 def photo():
+    global photo1_label, photo1, photo2_label, photo2, photo3_label, photo3, photo4_label, photo4
+    
     photo1_frame.grid(row=2, column=0)
-    global photo1_label,photo1
     photo1 = Image.open(path[0])
     photo1 = photo1.resize(size)
     photo1 = ImageTk.PhotoImage(photo1)
@@ -207,7 +208,6 @@ def photo():
     photo1_btn.grid()
 
     photo2_frame.grid(row=2, column=1)
-    global photo2_label,photo2
     photo2 = Image.open(path[1])
     photo2 = photo2.resize(size)
     photo2 = ImageTk.PhotoImage(photo2)
@@ -216,7 +216,6 @@ def photo():
     photo2_btn.grid()
 
     photo3_frame.grid(row=2, column=2)
-    global photo3_label,photo3
     photo3 = Image.open(path[2])
     photo3= photo3.resize(size)
     photo3 = ImageTk.PhotoImage(photo3)
@@ -225,7 +224,6 @@ def photo():
     photo3_btn.grid()
 
     photo4_frame.grid(row=2, column=3)
-    global photo4_label,photo4
     photo4 = Image.open(path[3])
     photo4 = photo4.resize(size)
     photo4 = ImageTk.PhotoImage(photo4)
