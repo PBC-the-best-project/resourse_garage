@@ -57,20 +57,20 @@ def google_photo(sex, season0, color0):
     else:
         for item in items:
             new_items.append(u'{0}({1})'.format(item['name'][0:10], item['id']))
-    photo = []  # 要找的照片的檔名+ID
+    photo_find = []  # 要找的照片的檔名+ID
     keyword_to_find = str(sex + season0 + '＿' + color0)  # 要找的照片的關鍵字:XX＿X，如：男秋＿白
     for a in new_items:
         if a.find(keyword_to_find) != -1:
-            photo.append(a)
+            photo_find.append(a)
         else:
             continue
     # print(len(photo))  # 檢查是不是每個組合都是有照片的
     photo_path = os.getcwd()  # 這個py檔的路徑，因為載下來的照片會存在這個py檔旁邊
     pathlist = []
-    for i in range(0, len(photo)):  # 4張圖片
-        url = 'https://drive.google.com/u/0/uc?id=' + photo[i][11:-1] + '&export=download'
+    for i in range(0, len(photo_find)):  # 4張圖片
+        url = 'https://drive.google.com/u/0/uc?id=' + photo_find[i][11:-1] + '&export=download'
         photo_sourse = requests.get(url)  # 讀網址檔
-        with open('image.' + 'test' + str(i) + '.png', 'wb') as file:
+        with open('image.test' + str(i) + '.png', 'wb') as file:
             file.write(photo_sourse.content)
             pathlist.append(photo_path + '/image.test' + str(i) + '.png')
     global path
@@ -301,7 +301,7 @@ window = tk.Tk()
 
 window.title('星座穿搭')
 window.geometry('1425x755')
-window.configure(background='white')
+window.configure(background='old lace')
 
 path = []
 
