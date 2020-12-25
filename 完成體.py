@@ -1,17 +1,16 @@
 from __future__ import print_function
-from PIL import Image,ImageTk
+from PIL import Image, ImageTk
 import tkinter as tk
 from bs4 import BeautifulSoup
-import requests
 import datetime
 import pickle
 import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-# from bs4 import BeautifulSoup
 import requests
 import os
+
 
 def google_photo(sex):
     # If modifying these scopes, delete the file token.pickle.
@@ -49,7 +48,7 @@ def google_photo(sex):
         for item in items:
             new_items.append(u'{0}({1})'.format(item['name'][0:10], item['id']))
     photo = []  # 要找的照片的檔名+ID
-    keyword_to_find = str(sex + '秋＿白')  # 要找的照片的關鍵字:XX＿X，如：男秋＿白
+    keyword_to_find = str(sex + '秋＿' + color)  # 要找的照片的關鍵字:XX＿X，如：男秋＿白
     for a in new_items:
         if a.find(keyword_to_find) != -1:
             photo.append(a)
@@ -69,12 +68,14 @@ def google_photo(sex):
             pathlist.append(path + '/image.test' + str(i) + '.png')
     return pathlist
 
+
 def nextpage():
     name_frame.pack_forget()
     sex_frame.pack_forget()
     starsign_frame.pack_forget()
     next_btn.pack_forget()
     city_frame.pack_forget()
+
 
 def luckystar():
     while True:
@@ -88,7 +89,10 @@ def luckystar():
                 break
         except ValueError:
             print('請輸入數字')
-    a = int(21)
+    city_dic = {'彰化': 1, '嘉義': 2, '基隆': 3, '新竹': 9, '花蓮': 11, '高雄': 13, '苗栗': 14, '屏東': 15, '台中': 19, '台南': 20,
+                '台北': 21, '新北': 22, '台東': 23, '桃園': 25, '金門': 42, '宜蘭': 72, '雲林': 75, '南投': 89}
+
+    a = city_dic.get(city_variable.get())
     if a <= 9:
         url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX000' + \
                str(a) + ':1:TW?Goto=Redirected'
@@ -118,10 +122,7 @@ def luckystar():
     num6 = soup3.find_all('div', attrs=attr5)  # 心情＋財運＋健康＋開運方位
 
     index = num4[0].get_text().find(' 天氣')
-    '''
-    1彰化/2嘉義/3基隆/9新竹/11花蓮/13高雄/14苗栗/15屏東/19台中/20台南/21台北/
-    22新北/23台東/25桃園/42金門/72宜蘭/75雲林/89南投
-    '''
+
     common_use = str(num4[0].get_text()[index:]) + '：' + str(num3[0].get_text())
     if a == 1:
         string1 = str('彰化' + common_use)
@@ -183,16 +184,22 @@ def luckystar():
     elif 25 <= temperature:
         keyword_to_find = '夏'
     print(temperature)
-    starnum = int()
-    print(((int(otherStyleTime[5]) + int(otherStyleTime[6])) * int(otherStyleTime[8])
-           + int(otherStyleTime[9]) + starnum) % 12)
-
+    starnumdic = {'牡羊': 1, '金牛': 2, '雙子': 3, '巨蟹': 4, '獅子': 5, '處女': 6, '天秤': 7,
+                  '天蠍': 8, '射手': 9, '摩羯': 10, '水瓶': 11, '雙魚': 0}
+    star_num = starnumdic.get(star_variable.get())
+    luckycolor = ((int(otherStyleTime[5]) + int(otherStyleTime[6])) * int(otherStyleTime[8])
+           + int(otherStyleTime[9]) + star_num) % 12
+    luckycolordic = {0: '藍', 1: '橘', 2: '綠', 3: '黑', 4: '黃', 5: '紅', 6: '紫', 7: '棕',
+                     8: '杏', 9: '粉', 10: '灰', 11: '白'}
+    color = luckycolordic.get(luckycolor)
     time_frame.grid(row=0, column=1, columnspan=2)
-    time_label.configure(text = otherStyleTime + '   ' + string1 + '   ' + string2)
+    time_label.configure(text=otherStyleTime + '   ' + string1 + '   ' + string2)
     time_label.grid()
     luck_frame.grid(row=1, column=1, columnspan=2)
-    luck_label.configure(text = string3)
+    luck_label.configure(text=string3)
     luck_label.grid()
+    return color
+
 
 def photo():
     photo1_frame.grid(row=2, column=0)
