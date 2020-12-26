@@ -13,7 +13,7 @@ import os
 
 
 def variable():
-    global name_variable,sex_variable, star_variable, city_variable, starnum
+    global name_variable, sex_variable, star_variable, city_variable, starnum
     name_variable = str(name_variable.get())
     sex_variable = str(sex_variable.get())
     star_variable = str(star_variable.get())
@@ -55,6 +55,7 @@ def google_photo(sex, season0, color0):
     else:
         for item in items:
             new_items.append(u'{0}({1})'.format(item['name'][0:10], item['id']))
+    # print(len(new_items))
     photo_find = []  # 要找的照片的檔名+ID
     keyword_to_find = str(sex + season0 + '＿' + color0)  # 要找的照片的關鍵字:XX＿X，如：男秋＿白
     for a in new_items:
@@ -84,14 +85,14 @@ def nextpage():
     city_frame.pack_forget()
     global final_label, name_variable, color
     now = datetime.datetime.now()  # 2019-04-11 14:18:41.629019
-    otherStyleTime = now.strftime("%Y/%m/%d %H:%M:%S")  # 2019-04-11 14:18:41
-    color = lucky_color_dic.get(((int(otherStyleTime[5]) + int(otherStyleTime[6])) * int(otherStyleTime[8]) + int(otherStyleTime[9]) + starnum) % 12)
-
+    otherstyletime = now.strftime("%Y/%m/%d %H:%M:%S")  # 2019-04-11 14:18:41
+    color = lucky_color_dic.get(((int(otherstyletime[5]) + int(otherstyletime[6])) * int(otherstyletime[8])
+                                 + int(otherstyletime[9]) + starnum) % 12)
     if sex_variable == '男':
         final_label.configure(text=str(name_variable)[0] + "先生，您今天的幸運色是" + color + "色，這是您今天的最適穿著")
     else:
         final_label.configure(text=str(name_variable)[0] + "小姐，您今天的幸運色是" + color + "，這是您今天的最適穿著")
-    return otherStyleTime, color
+    return otherstyletime, color
 
 
 def luckystar():
@@ -214,7 +215,7 @@ def photo():
 
     photo3_frame.grid(row=2, column=2)
     photo3 = Image.open(path[2])
-    photo3= photo3.resize(size)
+    photo3 = photo3.resize(size)
     photo3 = ImageTk.PhotoImage(photo3)
     photo3_label.configure(image=photo3)
     photo3_label.grid()
@@ -326,8 +327,8 @@ season = str()
 starnum = int()
 city_dic = {'彰化': 1, '嘉義': 2, '基隆': 3, '新竹': 9, '花蓮': 11, '高雄': 13, '苗栗': 14, '屏東': 15, '台中': 19, '台南': 20,
             '台北': 21, '新北': 22, '台東': 23, '桃園': 25, '金門': 42, '宜蘭': 72, '雲林': 75, '南投': 89}
-star_dic = {'牡羊': 1, '金牛': 2, '雙子': 3, '巨蟹': 4, '獅子': 5,'處女': 6,
-            '天秤': 7,'天蠍': 8,'人馬': 9,'魔羯': 10,'水瓶': 11,'雙魚': 0}
+star_dic = {'牡羊': 1, '金牛': 2, '雙子': 3, '巨蟹': 4, '獅子': 5, '處女': 6,
+            '天秤': 7, '天蠍': 8, '人馬': 9, '魔羯': 10, '水瓶': 11, '雙魚': 0}
 lucky_color_dic = {0: '藍', 1: '橘', 2: '綠', 3: '黑', 4: '黃', 5: '紅',
                    6: '紫', 7: '棕', 8: '杏', 9: '粉', 10: '灰', 11: '白'}
 color = str()
