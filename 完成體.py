@@ -238,13 +238,17 @@ def variable_nextpage_luckystar_photo():
     photo()
 
 
-def chose1():
+def chose():
     photo1_frame.grid_forget()
     photo2_frame.grid_forget()
     photo3_frame.grid_forget()
     photo4_frame.grid_forget()
     time_frame.grid_forget()
     luck_frame.grid_forget()
+
+
+def chose1():
+    chose()
     global photo1
     final_label.pack(side=tk.TOP, padx=20, pady=10)
     final = tk.Label(window, image=photo1)
@@ -254,12 +258,7 @@ def chose1():
 
 
 def chose2():
-    photo1_frame.grid_forget()
-    photo2_frame.grid_forget()
-    photo3_frame.grid_forget()
-    photo4_frame.grid_forget()
-    time_frame.grid_forget()
-    luck_frame.grid_forget()
+    chose()
     global photo2
     final_label.pack(side=tk.TOP, padx=20, pady=10)
     final = tk.Label(window, image=photo2)
@@ -269,12 +268,7 @@ def chose2():
 
 
 def chose3():
-    photo1_frame.grid_forget()
-    photo2_frame.grid_forget()
-    photo3_frame.grid_forget()
-    photo4_frame.grid_forget()
-    time_frame.grid_forget()
-    luck_frame.grid_forget()
+    chose()
     global photo3
     final_label.pack(side=tk.TOP, padx=20, pady=10)
     final = tk.Label(window, image=photo3)
@@ -284,12 +278,7 @@ def chose3():
 
 
 def chose4():
-    photo1_frame.grid_forget()
-    photo2_frame.grid_forget()
-    photo3_frame.grid_forget()
-    photo4_frame.grid_forget()
-    time_frame.grid_forget()
-    luck_frame.grid_forget()
+    chose()
     global photo4
     final_label.pack(side=tk.TOP, padx=20, pady=10)
     final = tk.Label(window, image=photo4)
