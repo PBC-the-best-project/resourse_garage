@@ -2,14 +2,12 @@ from __future__ import print_function
 from PIL import Image, ImageTk
 import tkinter as tk
 from bs4 import BeautifulSoup
-import requests
 import datetime
 import pickle
 import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-# from bs4 import BeautifulSoup
 import requests
 import os
 
@@ -70,9 +68,9 @@ def google_photo(sex, season0, color0):
     for i in range(0, len(photo_find)):  # 4張圖片
         url = 'https://drive.google.com/u/0/uc?id=' + photo_find[i][11:-1] + '&export=download'
         photo_sourse = requests.get(url)  # 讀網址檔
-        with open('image.test' + str(i) + '.png', 'wb') as file:
+        with open('image.test' + str(i) + '.jpg', 'wb') as file:
             file.write(photo_sourse.content)
-            pathlist.append(photo_path + '/image.test' + str(i) + '.png')
+            pathlist.append(photo_path + '/image.test' + str(i) + '.jpg')
     global path
     path = pathlist
     return path
@@ -84,16 +82,20 @@ def nextpage():
     starsign_frame.pack_forget()
     next_btn.pack_forget()
     city_frame.pack_forget()
-    global final_label, name_variable
+    global final_label, name_variable, color
+    now = datetime.datetime.now()  # 2019-04-11 14:18:41.629019
+    otherStyleTime = now.strftime("%Y/%m/%d %H:%M:%S")  # 2019-04-11 14:18:41
+    color = lucky_color_dic.get(((int(otherStyleTime[5]) + int(otherStyleTime[6])) * int(otherStyleTime[8]) + int(otherStyleTime[9]) + starnum) % 12)
+
     if sex_variable == '男':
-        final_label.configure(text=name_variable[0] + "先生，這是您今天的最適穿著")
+        final_label.configure(text=str(name_variable)[0] + "先生，您今天的幸運色是" + color + "色，這是您今天的最適穿著")
     else:
-        final_label.configure(text=name_variable[0] + "小姐，這是您今天的最適穿著")
+        final_label.configure(text=str(name_variable)[0] + "小姐，您今天的幸運色是" + color + "，這是您今天的最適穿著")
+    return otherStyleTime, color
+
 
 def luckystar():
-
     a = city_dic.get(city_variable)
-
     if a <= 9:
         url2 = 'https://weather.com/zh-TW/weather/today/l/TWXX000' + \
                str(a) + ':1:TW?Goto=Redirected'
@@ -188,9 +190,7 @@ def luckystar():
         season = '秋'
     elif 25 <= temperature:
         season = '夏'
-
     global color
-    color = lucky_color_dic.get(((int(otherStyleTime[5]) + int(otherStyleTime[6])) * int(otherStyleTime[8]) + int(otherStyleTime[9]) + starnum) % 12)
 
 
 def photo():
@@ -200,7 +200,7 @@ def photo():
     photo1 = Image.open(path[0])
     photo1 = photo1.resize(size)
     photo1 = ImageTk.PhotoImage(photo1)
-    photo1_label.configure(image = photo1)
+    photo1_label.configure(image=photo1)
     photo1_label.grid()
     photo1_btn.grid()
 
@@ -208,7 +208,7 @@ def photo():
     photo2 = Image.open(path[1])
     photo2 = photo2.resize(size)
     photo2 = ImageTk.PhotoImage(photo2)
-    photo2_label.configure(image = photo2)
+    photo2_label.configure(image=photo2)
     photo2_label.grid()
     photo2_btn.grid()
 
@@ -216,7 +216,7 @@ def photo():
     photo3 = Image.open(path[2])
     photo3= photo3.resize(size)
     photo3 = ImageTk.PhotoImage(photo3)
-    photo3_label.configure(image = photo3)
+    photo3_label.configure(image=photo3)
     photo3_label.grid()
     photo3_btn.grid()
 
@@ -224,7 +224,7 @@ def photo():
     photo4 = Image.open(path[3])
     photo4 = photo4.resize(size)
     photo4 = ImageTk.PhotoImage(photo4)
-    photo4_label.configure(image = photo4)
+    photo4_label.configure(image=photo4)
     photo4_label.grid()
     photo4_btn.grid()
 
@@ -245,7 +245,7 @@ def chose1():
     time_frame.grid_forget()
     luck_frame.grid_forget()
     global photo1
-    final_label.pack(side = tk.TOP, padx=20, pady=10)
+    final_label.pack(side=tk.TOP, padx=20, pady=10)
     final = tk.Label(window, image=photo1)
     final.pack(side=tk.TOP)
     for i in range(0, 4):
@@ -260,7 +260,7 @@ def chose2():
     time_frame.grid_forget()
     luck_frame.grid_forget()
     global photo2
-    final_label.pack(side = tk.TOP, padx=20, pady=10)
+    final_label.pack(side=tk.TOP, padx=20, pady=10)
     final = tk.Label(window, image=photo2)
     final.pack(side=tk.TOP)
     for i in range(0, 4):
@@ -275,7 +275,7 @@ def chose3():
     time_frame.grid_forget()
     luck_frame.grid_forget()
     global photo3
-    final_label.pack(side = tk.TOP, padx=20, pady=10)
+    final_label.pack(side=tk.TOP, padx=20, pady=10)
     final = tk.Label(window, image=photo3)
     final.pack(side=tk.TOP)
     for i in range(0, 4):
@@ -290,7 +290,7 @@ def chose4():
     time_frame.grid_forget()
     luck_frame.grid_forget()
     global photo4
-    final_label.pack(side = tk.TOP, padx=20, pady=10)
+    final_label.pack(side=tk.TOP, padx=20, pady=10)
     final = tk.Label(window, image=photo4)
     final.pack(side=tk.TOP)
     for i in range(0, 4):
