@@ -91,7 +91,7 @@ def nextpage():
     if sex_variable == '男':
         final_label.configure(text=str(name_variable)[0] + "先生，您今天的幸運色是" + color + "色，這是您今天的最適穿著")
     else:
-        final_label.configure(text=str(name_variable)[0] + "小姐，您今天的幸運色是" + color + "，這是您今天的最適穿著")
+        final_label.configure(text=str(name_variable)[0] + "小姐，您今天的幸運色是" + color + "色，這是您今天的最適穿著")
     return otherstyletime, color
 
 
