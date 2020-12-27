@@ -196,7 +196,7 @@ def luckystar():
 
 def photo():
     global photo1_label, photo1, photo2_label, photo2, photo3_label, photo3, photo4_label, photo4
-    
+
     photo1_frame.grid(row=2, column=0)
     photo1 = Image.open(path[0])
     photo1 = photo1.resize(size)
@@ -287,11 +287,17 @@ def chose4():
         os.remove(path=path[i])
 
 
+'''螢幕大小'''
 window = tk.Tk()
-
+bg_photo_path = os.getcwd() + '背景.png'
 window.title('星座穿搭')
 window.geometry('1425x755')
 window.configure(background='old lace')
+'''背景圖片'''
+filename = tk.PhotoImage(file=os.getcwd()+'/背景.png')
+background_label = tk.Label(window, image=filename)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 
 path = []
 
